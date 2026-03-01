@@ -1,0 +1,1 @@
+## The [evidence.txt](evidence.txt) file shows the error find times in `lintian` for the `test-pkg` package. The times are recorded in seconds and indicate how long it took to find each error.
