@@ -1,0 +1,1 @@
+openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 5
