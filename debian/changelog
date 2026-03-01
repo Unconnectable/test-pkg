@@ -1,0 +1,5 @@
+test-pkg (0.1-1) unstable; urgency=medium
+
+  * Initial release for testing lintian-brush.
+
+ -- Test User <test@test.com>  Sun, 01 Mar 2026 18:41:33 +0800

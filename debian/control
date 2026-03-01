@@ -1,0 +1,12 @@
+Source: test-pkg
+Section: utils
+Priority: optional
+Maintainer: Test <test@test.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+
+Package: test-pkg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Test package
+ Test description.
