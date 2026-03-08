@@ -1,11 +1,3 @@
-## The [evidence.txt](evidence.txt) file shows the error find times in `lintian` for the `test-pkg` package. The times are recorded in seconds and indicate how long it took to find each error.
-
-
-
-
-
-
-```rust
 use debian_control::lossless::Control;
 use std::fs;
 use std::io;
@@ -32,4 +24,7 @@ fn main() -> io::Result<()> {
     println!("\n--- Task Complete ---");
     Ok(())
 }
-```
+
+fn test() -> i32 {
+    return 3;
+}
