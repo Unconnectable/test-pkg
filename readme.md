@@ -1,35 +1,37 @@
-## The [evidence.txt](evidence.txt) file shows the error find times in `lintian` for the `test-pkg` package. The times are recorded in seconds and indicate how long it took to find each error.
+# steps here
 
+## 1.成功复现了多个二进制包的解析
 
+[control-file](./debian/control)和 [changelog-file](./debian/changelog) 文件中包含了多个二进制包的定义，使用 `lintian-brush` 成功解析了这些包，并打印出了它们的名称。
 
-
-
-
-```rust
-use debian_control::lossless::Control;
-use std::fs;
-use std::io;
-use std::str::FromStr;
-
-fn main() -> io::Result<()> {
-    println!("--- Running Application Task 1: Control File Parser ---");
-
-    // 读取 debian/control 文件
-    let file_path = "../debian/control";
-    let control_content = fs::read_to_string(file_path)
-        .unwrap_or_else(|e| panic!("Could not read file '{}': {}", file_path, e));
-
-    // 解析文件内容
-    let control = Control::from_str(&control_content).expect("Failed to parse control file");
-
-    println!("\nFound the following binary package names:");
-
-    // 遍历二进制包，打印出二进制包名
-    for binary in control.binaries() {
-        println!("- {}", binary.name().unwrap());
-    }
-
-    println!("\n--- Task Complete ---");
-    Ok(())
-}
+```sh
+$ strace -f -e trace=openat,read,close ~/bench_test/lintian-brush/target/release/lintian-brush 2>&1 | grep "debian/control"
+openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 5
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
+[pid 3029471] openat(AT_FDCWD, "/mnt/hdd/users/filament/bench_test/test-pkg/debian/control", O_RDONLY|O_CLOEXEC) = 8
 ```

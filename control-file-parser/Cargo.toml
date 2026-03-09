@@ -1,7 +1,0 @@
-[package]
-name = "control-file-parser"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-debian-control = "0.2.1"
